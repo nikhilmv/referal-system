@@ -65,17 +65,19 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    { 
+    {
         $defaultPoint = 10;//all users will get a point of 10 when register
         if($data['referal_code'] !=''){
             $existingReferalCode = User::where('refereal_code', $data['referal_code'])->first();
             $parentId = $existingReferalCode->id;
+
         }else{
-            $parentId = null; 
-        } 
-        
-        $code =  $this->generateUniqueCode(); 
-        return User::create([
+            $parentId = null;
+        }
+
+
+        $code =  $this->generateUniqueCode();
+       $data =  User::create([
             'name'           => $data['name'],
             'email'          => $data['email'],
             'level'          => '1',
@@ -84,6 +86,33 @@ class RegisterController extends Controller
             'points'         => $defaultPoint,
             'password'       => Hash::make($data['password']),
         ]);
+
+        if($data && $parentId!=null){
+
+            $allUsers = User::orderBy('id', 'desc')->get();
+
+            $arr =[];
+            $i=1;
+            foreach ($allUsers as $key => $user) {
+                // dd($user);
+                $userParentOrgId = $parentId;
+                $parentRec  =  User::where('id', $userParentOrgId)->first();
+                if(isset($parentRec)){
+                    User::where('id', $parentRec->id)->update([
+                        'points' => $parentRec->points+$defaultPoint-$i,
+                     ]);
+
+                }else{
+                    break;
+                }
+                $i++;
+            }
+           // dd($arr);
+
+        }
+
+        exit();
+
     }
 
 
@@ -102,7 +131,7 @@ class RegisterController extends Controller
             $character = $characters[$position];
             $code = $code.$character;
         }
- 
+
         if (User::where('refereal_code', $code)->exists()) {
             $this->generateUniqueCode();
         }
