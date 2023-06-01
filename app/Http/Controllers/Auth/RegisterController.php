@@ -74,9 +74,8 @@ class RegisterController extends Controller
         }else{
             $parentId = null;
         }
-
-
-        $code =  $this->generateUniqueCode();
+ 
+       $code =  $this->generateUniqueCode();
        $data =  User::create([
             'name'           => $data['name'],
             'email'          => $data['email'],
@@ -86,31 +85,41 @@ class RegisterController extends Controller
             'points'         => $defaultPoint,
             'password'       => Hash::make($data['password']),
         ]);
-
-        if($data && $parentId!=null){
-
-            $allUsers = User::orderBy('id', 'desc')->get();
-
-            $arr =[];
-            $i=1;
-            foreach ($allUsers as $key => $user) {
-                // dd($user);
-                $userParentOrgId = $parentId;
-                $parentRec  =  User::where('id', $userParentOrgId)->first();
-                if(isset($parentRec)){
-                    User::where('id', $parentRec->id)->update([
-                        'points' => $parentRec->points+$defaultPoint-$i,
-                     ]);
-
-                }else{
-                    break;
-                }
-                $i++;
-            }
-           // dd($arr);
-
+ 
+        if(!isset($existingReferalCode->id)){
+            $ref = $data->refereal_code; 
+        } else {
+            $ref = $existingReferalCode->id; 
         }
+        
+        $alluser = User::whereBetween('id', [0, $ref])
+        ->orderBy('id','DESC')->get();
+        
+        $arr =[]; 
+        foreach ($alluser as $key => $user) {
+            $currentRec = User::where('refereal_code', $user->refereal_code)->first();  
+            if (isset($currentRec->parent_user_id)) {
+                $parent_rec = User::where('id', $currentRec->parent_user_id)->first(); 
+                array_push($arr, $parent_rec->id);
+                array_push($arr, $currentRec->id);
 
+            } else{
+                array_push($arr, $currentRec->id); 
+                break;
+            } 
+        }
+        $filteredArr = array_unique($arr);
+        arsort($filteredArr);
+        $i=1;
+        foreach ($filteredArr as $key => $filtArr) { 
+         
+            $rec = User::find($filtArr);
+            $rec->points = $rec->points+$defaultPoint-$i;
+            $rec->save();
+ 
+        $i++;  
+        }
+        
         exit();
 
     }
