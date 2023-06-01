@@ -18,6 +18,7 @@ class UsersController extends Controller
 
     public function index(Request $request)
     {
+        
         $data = [
             'count_user' => User::latest()->count(),
             'menu'       => 'menu.v_menu_admin',
@@ -26,9 +27,21 @@ class UsersController extends Controller
         ];
 
         if ($request->ajax()) {
-            $q_user = User::select('*')->where('level','!=', 0)->orderByDesc('created_at');
+            $user = auth()->user(); 
+            if ($user->level == 1) {
+                $q_user = User::select('*')->orderByDesc('created_at'); 
+            }else{
+                $q_user = User::select('*')->where('id','=', $user->id)->orderByDesc('created_at');
+
+            }
             return Datatables::of($q_user)
                     ->addIndexColumn()
+                    ->editColumn('refereal_code', function ($row) {
+                        return isset($row->refereal_code)?$row->refereal_code:'null';
+                     })
+                    ->editColumn('points', function ($row) {
+                        return isset($row->points)?$row->points:'null';
+                     })
                     ->addColumn('action', function($row){
      
                         $btn = '<div data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="btn btn-sm btn-icon btn-outline-success btn-circle mr-2 edit editUser"><i class=" fi-rr-edit"></i></div>';

@@ -22,7 +22,8 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    { 
+        return redirect('/users');
         $data = array(
             'count_user' => DB::table('users')->count(),
             'menu'      => 'menu.v_menu_admin',

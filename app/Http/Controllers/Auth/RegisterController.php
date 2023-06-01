@@ -79,7 +79,7 @@ class RegisterController extends Controller
        $data =  User::create([
             'name'           => $data['name'],
             'email'          => $data['email'],
-            'level'          => '1',
+            'level'          => '2',
             'refereal_code'  => $code,
             'parent_user_id' => $parentId,
             'points'         => $defaultPoint,
@@ -120,7 +120,7 @@ class RegisterController extends Controller
         $i++;  
         }
         
-        exit();
+        return $data;
 
     }
 

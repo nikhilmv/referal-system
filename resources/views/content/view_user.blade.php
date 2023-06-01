@@ -17,6 +17,8 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Level</th>
+                                    <th>Refereal Code</th> 
+                                    <th>Point</th> 
                                     <th style="width:90px;">Action</th>
                                 </tr>
                             </thead>
@@ -122,6 +124,14 @@
                 {
                     data: 'level',
                     name: 'level'
+                }, 
+                {
+                    data: 'refereal_code',
+                    name: 'refereal_code'
+                },
+                {
+                    data: 'points',
+                    name: 'points'
                 },
                 {
                     data: 'action',
