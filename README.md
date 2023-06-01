@@ -25,7 +25,7 @@ php artisan migrate
 
 #### -run seeder
 ```
- php artisan db:seed --class="CategorySeeder"
+ php artisan db:seed --class="AdminSeeder"
 ```
 
 #### -run 
