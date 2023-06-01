@@ -1,4 +1,4 @@
-# Laravel simple ecom test
+# Laravel simple referral system
 
 
 
