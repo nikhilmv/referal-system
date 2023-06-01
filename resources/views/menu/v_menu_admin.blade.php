@@ -87,63 +87,8 @@
                                 </a>
 
                             </li>
-<!-- 
-                            <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                <a href="/list" class="menu-link menu-toggle">
-                                    <i class="menu-bullet menu-bullet-line">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">List</span>
-                                    <span class="menu-label">
-                                        <span class="label label-rounded label-primary"><?= $count_user ?></span>
-                                    </span>
-
-                                </a>
-                            </li> -->
 
 
-                            <!-- <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                <a href="{{ route('product.list') }}" class="menu-link menu-toggle">
-                                    <i class="menu-bullet menu-bullet-line">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">Products</span>
-                                    <span class="menu-label">
-                                        <span class="label label-rounded label-primary"></span>
-                                    </span>
-
-                                </a>
-                            </li> -->
-
-
-                            <!-- <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                <a href="{{ route('order.list') }}" class="menu-link menu-toggle">
-                                    <i class="menu-bullet menu-bullet-line">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">Orders</span>
-                                    <span class="menu-label">
-                                        <span class="label label-rounded label-primary"></span>
-                                    </span>
-
-                                </a>
-                            </li> -->
-
-
-                            <!-- <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                                <a href="{{ route('order.list') }}" class="menu-link menu-toggle">
-                                    <i class="menu-bullet menu-bullet-line">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">Orders</span>
-                                    <span class="menu-label">
-                                        <span class="label label-rounded label-primary"></span>
-                                    </span>
-
-                                </a>
-                            </li> -->
-
-                            
                         </ul>
                     </div>
                 </li>
